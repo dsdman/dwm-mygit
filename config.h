@@ -30,29 +30,29 @@ static const char col_purple2[]     = "#9e68a6";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
   /* Current theme */
-  [SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_purple2, col_black, col_purple2 },
+  [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	[SchemeSel]  = { col_purple2, col_gray1, col_purple2 },
 
   /* Dark Theme 1 */
   /*
-  [SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_auora, col_black, col_navyblue },*/
+  [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	[SchemeSel]  = { col_auora, col_gray1, col_navyblue },*/
   /* DARK THEME 2 */
  /* 
-	[SchemeNorm] = { col_gray3, col_black, col_gray1 },
-	[SchemeSel]  = { col_tan, col_black, col_purple22 }, */
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
+	[SchemeSel]  = { col_tan, col_gray1, col_purple22 }, */
   /* DARK THEME 3 */
  /* 
-	[SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_auora, col_black, col_purple2 }, */
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	[SchemeSel]  = { col_auora, col_gray1, col_purple2 }, */
   /* DARK THEME 4 */
  /* 
-	[SchemeNorm] = { col_gray3, col_black, col_gray1 },
-	[SchemeSel]  = { col_purple2, col_black, col_purple2 }, */
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
+	[SchemeSel]  = { col_purple2, col_gray1, col_purple2 }, */
   /* LIGHT THEME 1 */
 /*	
-  [SchemeNorm] = { col_black, col_white, col_gray2 },
-	[SchemeSel]  = { col_black, col_crimson, col_orange }, */
+  [SchemeNorm] = { col_gray1, col_white, col_gray2 },
+	[SchemeSel]  = { col_gray1, col_crimson, col_orange }, */
   /* DEFAULT THEME */
   /*
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -71,19 +71,20 @@ static const Rule rules[] = {
 	{ "Gimp",               NULL,       NULL,       0,            1,           -1 },
 	{ "SpeedCrunch",        NULL,       NULL,       0,            1,           -1 },
 	{ "st-256color",        NULL,       "scratch",  0,            1,           -1 },
+	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
-#include "gaplessgrid.c"
+#include "layouts.c"
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 3;    /* number of clients in master area */
+static const int nmaster     = 2;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "[G]",      gaplessgrid },
+	{ "[G]",      grid },
 	{ "[B]",      bstack },
 	{ "[H]",      bstackhoriz },
 };
@@ -101,10 +102,10 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_black, "-sf", col_purple2, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray1, "-sf", col_purple2, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *browser[]  = { "chromium", NULL };
-static const char *browser2[]  = { "firefox", NULL };
+static const char *browser[]  = { "firefox", NULL };
+static const char *browser2[]  = { "chromium", NULL };
 static const char *editor[]  = { "st", "-e", "nvim", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
 static const char *display_setup2[]  = { "/home/dylan/apps/src/dual-monitor-setup/dual-monitor-setup.sh", NULL };
@@ -113,7 +114,7 @@ static const char *filebrowser[]  = { "st", "-e", "ranger", NULL };
 static const char *screenshot[]  = { "scrot",  NULL };
 static const char *lockscreen[]  = { "sudo", "slock", NULL };
 static const char *poweroff[] = { "sudo", "poweroff", NULL};
-static const char *suspend[] = { "lock+suspend.sh", NULL};
+static const char *suspend[] = { "sudo", "s2ram", NULL};
 static const char *reboot[] = { "sudo", "reboot", NULL};
 static const char *upvol[]   = { "amixer", "-D", "pulse", "sset", "Master", "5%+", NULL };
 static const char *downvol[] = { "amixer", "-D", "pulse", "sset", "Master", "5%-", NULL };
@@ -221,4 +222,6 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ 0,                    MODKEY,         Button4,        shiftview,      {.i = +1 } },
+	{ 0,                    MODKEY,         Button5,        shiftview,      {.i = -1 } },
 };
