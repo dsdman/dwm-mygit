@@ -1,66 +1,34 @@
-/* See LICENSE file for copyright and license details. */
 /* including x11 keysym for volume/brightness keys */
 #include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 8;        /* snap pixel */
+static const unsigned int snap      = 16;        /* snap pixel */
+static const unsigned int minwsz    = 5;       /* Minimal heigt of a client for smfact */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=12" };
-static const char dmenufont[]       = "monospace:size=12";
+static const char *fonts[]          = { "Inconsolata:size=14" };
+static const char dmenufont[]       = "Inconsolata:size=14";
 static const char col_white[]       = "#ffffff";
 static const char col_black[]       = "#000000";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_gray5[]       = "#383c4a";
 static const char col_cyan[]        = "#005577";
-static const char col_neon[]        = "#39ff14";
-static const char col_yellow[]      = "#FFCC00";
-static const char col_yellow2[]     = "#FFA726";
-static const char col_auora[]       = "#8E97B4";
-static const char col_tan[]         = "#D2B48C";
-static const char col_crimson[]     = "#DC143C";
-static const char col_mint[]        = "#3EB489";
-static const char col_blue[]        = "#506991";
-static const char col_navyblue[]    = "#000080";
-static const char col_purple[]      = "#6600CC";
-static const char col_purple2[]     = "#9e68a6";
+static const char col_red[]         = "#FF0000";
+static const char col_biege[]       = "#f9ae91";
+static const char col_sun[]         = "#fdb813";
+static const char col_orange[]      = "#d95910";
+static const char col_magenta[]     = "#ff00ff";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-  /* Current theme */
   [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_purple2, col_gray1, col_purple2 },
-
-  /* Dark Theme 1 */
-  /*
-  [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_auora, col_gray1, col_navyblue },*/
-  /* DARK THEME 2 */
- /* 
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
-	[SchemeSel]  = { col_tan, col_gray1, col_purple22 }, */
-  /* DARK THEME 3 */
- /* 
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_auora, col_gray1, col_purple2 }, */
-  /* DARK THEME 4 */
- /* 
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
-	[SchemeSel]  = { col_purple2, col_gray1, col_purple2 }, */
-  /* LIGHT THEME 1 */
-/*	
-  [SchemeNorm] = { col_gray1, col_white, col_gray2 },
-	[SchemeSel]  = { col_gray1, col_crimson, col_orange }, */
-  /* DEFAULT THEME */
-  /*
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  }, */
+  [SchemeSel]  = { col_white, col_gray2, col_cyan},
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "E" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -70,14 +38,16 @@ static const Rule rules[] = {
 	/* class                instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",               NULL,       NULL,       0,            1,           -1 },
 	{ "SpeedCrunch",        NULL,       NULL,       0,            1,           -1 },
-	{ "st-256color",        NULL,       "scratch",  0,            1,           -1 },
+	{ "xterm-256color",     NULL,       "scratch",  0,            1,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
+	{ "XCalendar",          NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
 #include "layouts.c"
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 2;    /* number of clients in master area */
+static const float smfact    = 0.00; /* factor of tiled clients [0.00..0.95] */
+static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -87,6 +57,7 @@ static const Layout layouts[] = {
 	{ "[G]",      grid },
 	{ "[B]",      bstack },
 	{ "[H]",      bstackhoriz },
+	{ "[D]",      deck },
 };
 
 /* key definitions */
@@ -102,19 +73,25 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray1, "-sf", col_purple2, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_white, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *browser[]  = { "firefox", NULL };
-static const char *browser2[]  = { "chromium", NULL };
+static const char *termtabbed[]  = { "/home/dylan/apps/src/st-tabbed", NULL };
+static const char *browser[]  = { "chromium", NULL };
+static const char *browser2[]  = { "firefox", NULL };
+static const char *browser3[]  = { "waterfox", NULL };
 static const char *editor[]  = { "st", "-e", "nvim", NULL };
+static const char *calendar[] = { "xcalendar", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
 static const char *display_setup2[]  = { "/home/dylan/apps/src/dual-monitor-setup/dual-monitor-setup.sh", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
 static const char *filebrowser[]  = { "st", "-e", "ranger", NULL };
+static const char *filebrowser2[]  = { "pcmanfm-qt", NULL };
+static const char *kill_compositor[]  = { "killall", "compton", NULL };
 static const char *screenshot[]  = { "scrot",  NULL };
 static const char *lockscreen[]  = { "sudo", "slock", NULL };
 static const char *poweroff[] = { "sudo", "poweroff", NULL};
 static const char *suspend[] = { "sudo", "s2ram", NULL};
+static const char *suspend_lock[] = { "/home/dylan/apps/lock+suspend.sh", NULL};
 static const char *reboot[] = { "sudo", "reboot", NULL};
 static const char *upvol[]   = { "amixer", "-D", "pulse", "sset", "Master", "5%+", NULL };
 static const char *downvol[] = { "amixer", "-D", "pulse", "sset", "Master", "5%-", NULL };
@@ -124,7 +101,6 @@ static const char *downbacklight[] = { "sudo", "xbacklight", "-dec", "10", NULL 
 static const char *scratch[] = { "st", "-g", "146x26+150+225", "-t", "scratch", NULL };
 #include "push.c"
 #include "moveresize.c"
-#include "shiftview.c"
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -150,32 +126,40 @@ static const Key keys[] = {
   { MODKEY,                       XK_o,      winview,        {0} },
  	{ MODKEY,                       XK_y,      spawn,          {.v = editor } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filebrowser } },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = filebrowser2 } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser2 } },
+	{ MODKEY|ControlMask,           XK_w,      spawn,          {.v = browser3 } },
  	{ MODKEY,                       XK_c,      spawn,          {.v = calc } },
+ 	{ MODKEY|ControlMask,           XK_c,      spawn,          {.v = calendar } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termtabbed } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = scratch } },
 	{ MODKEY,                       XK_Escape, spawn,          {.v = sys_mon } },
  	{ MODKEY|ControlMask|ShiftMask, XK_l,      spawn,          {.v = lockscreen } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = poweroff} },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = suspend} },
+	{ MODKEY|ControlMask,           XK_s,      spawn,          {.v = suspend_lock} },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = reboot} },
  	{ 0,              XF86XK_AudioLowerVolume, spawn,          {.v = downvol} },
  	{ 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = upvol} },
- 	{ 0,              XK_F12,                  spawn,          {.v = screenshot} },
+ 	{ 0,              XK_Print,                spawn,          {.v = screenshot} },
  	{ 0,              XF86XK_AudioMute,        spawn,          {.v = mutevol} },
  	{ 0,              XF86XK_MonBrightnessUp,  spawn,          {.v = upbacklight} },
  	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbacklight} },
+	{ MODKEY,                    XK_BackSpace, spawn,          {.v = kill_compositor} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_equal,  shiftview,      {.i = +1 } },
-	{ MODKEY,                       XK_minus,  shiftview,      {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_equal,  setsmfact,      {.f = +0.05} },
+	{ MODKEY,                       XK_minus,  setsmfact,      {.f = -0.05} },
+	{ MODKEY|ShiftMask,          XK_semicolon, resetsmfact,    {0} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                    XK_semicolon, resetmfact,     {0} },
 	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
@@ -185,6 +169,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[6]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -202,6 +187,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_grave,                  9)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
   { MODKEY|ControlMask,           XK_q,      quit,           {1} }, 
 };
@@ -212,16 +198,19 @@ static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkLtSymbol,          0,              Button2,        zoom,           {0} },
+	{ ClkStatusText,        0,              Button1,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button2,        togglefloating, {0} },
+	{ ClkStatusText,        0,              Button3,        killclient,     {0} },
+	{ ClkStatusText,        0,              Button4,        focusstack,     {.i = -1} },
+	{ ClkStatusText,        0,              Button5,        focusstack,     {.i = +1} },
+	{ ClkStatusText,        MODKEY,         Button1,        togglebar,      {0} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,    MODKEY|ShiftMask,    Button1,        killclient,     {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
+	{ ClkTagBar,            0,              Button2,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
-	{ 0,                    MODKEY,         Button4,        shiftview,      {.i = +1 } },
-	{ 0,                    MODKEY,         Button5,        shiftview,      {.i = -1 } },
 };
