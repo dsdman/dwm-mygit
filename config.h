@@ -7,6 +7,9 @@ static const unsigned int snap      = 16;        /* snap pixel */
 static const unsigned int minwsz    = 5;       /* Minimal heigt of a client for smfact */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
+enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
+static const int showtab            = showtab_auto; /* Default tab bar show mode */
+static const int toptab             = False;    /* False means bottom tab bar */
 static const char *fonts[]          = { "Inconsolata:size=14" };
 static const char dmenufont[]       = "Inconsolata:size=14";
 static const char col_white[]       = "#ffffff";
@@ -19,12 +22,15 @@ static const char col_cyan[]        = "#005577";
 static const char col_red[]         = "#FF0000";
 static const char col_biege[]       = "#f9ae91";
 static const char col_sun[]         = "#fdb813";
+static const char col_blue[]        = "#88d2ff";
+static const char col_green_emd[]   = "#3cb371";
 static const char col_orange[]      = "#d95910";
 static const char col_magenta[]     = "#ff00ff";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
   [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-  [SchemeSel]  = { col_white, col_gray2, col_cyan},
+  //[SchemeSel]  = { col_green_emd, col_gray1, col_green_emd },
+  [SchemeSel]  = { col_blue, col_gray1, col_blue },
 };
 
 /* tagging */
@@ -41,6 +47,7 @@ static const Rule rules[] = {
 	{ "xterm-256color",     NULL,       "scratch",  0,            1,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
 	{ "XCalendar",          NULL,       NULL,       0,            1,           -1 },
+	{ "hl_linux",           NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -73,25 +80,26 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_white, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray1, "-sf", col_blue, NULL };
+/* static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_white, NULL }; */
 static const char *termcmd[]  = { "st", NULL };
 static const char *termtabbed[]  = { "/home/dylan/apps/src/st-tabbed", NULL };
-static const char *browser[]  = { "chromium", NULL };
-static const char *browser2[]  = { "firefox", NULL };
-static const char *browser3[]  = { "waterfox", NULL };
+static const char *browser[]  = { "firefox", NULL };
+static const char *browser2[]  = { "chromium", NULL };
 static const char *editor[]  = { "st", "-e", "nvim", NULL };
 static const char *calendar[] = { "xcalendar", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
 static const char *display_setup2[]  = { "/home/dylan/apps/src/dual-monitor-setup/dual-monitor-setup.sh", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
-static const char *filebrowser[]  = { "st", "-e", "ranger", NULL };
+static const char *filebrowser[]  = { "st", "-e", "nnn", NULL };
 static const char *filebrowser2[]  = { "pcmanfm-qt", NULL };
+static const char *filebrowser3[]  = { "st", "-e", "rover", NULL };
 static const char *kill_compositor[]  = { "killall", "compton", NULL };
 static const char *screenshot[]  = { "scrot",  NULL };
 static const char *lockscreen[]  = { "sudo", "slock", NULL };
 static const char *poweroff[] = { "sudo", "poweroff", NULL};
 static const char *suspend[] = { "sudo", "s2ram", NULL};
-static const char *suspend_lock[] = { "/home/dylan/apps/lock+suspend.sh", NULL};
+static const char *suspend_lock[] = { "/home/dylan/apps/bin/lock+suspend.sh", NULL};
 static const char *reboot[] = { "sudo", "reboot", NULL};
 static const char *upvol[]   = { "amixer", "-D", "pulse", "sset", "Master", "5%+", NULL };
 static const char *downvol[] = { "amixer", "-D", "pulse", "sset", "Master", "5%-", NULL };
@@ -127,9 +135,9 @@ static const Key keys[] = {
  	{ MODKEY,                       XK_y,      spawn,          {.v = editor } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filebrowser } },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = filebrowser2 } },
+	{ MODKEY|ControlMask,           XK_e,      spawn,          {.v = filebrowser3 } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser2 } },
-	{ MODKEY|ControlMask,           XK_w,      spawn,          {.v = browser3 } },
  	{ MODKEY,                       XK_c,      spawn,          {.v = calc } },
  	{ MODKEY|ControlMask,           XK_c,      spawn,          {.v = calendar } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
@@ -150,6 +158,7 @@ static const Key keys[] = {
  	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbacklight} },
 	{ MODKEY,                    XK_BackSpace, spawn,          {.v = kill_compositor} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_b,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -213,4 +222,5 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button2,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
 };

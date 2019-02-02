@@ -295,7 +295,8 @@ pushup	push.c	/^pushup(const Arg *arg) {$/;"	f	typeref:typename:void	file:
 quit	dwm.c	/^quit(const Arg *arg)$/;"	f	typeref:typename:void
 reboot	config.h	/^static const char *reboot[] = { "sudo", "reboot", NULL};$/;"	v	typeref:typename:const char * []
 recttomon	dwm.c	/^recttomon(int x, int y, int w, int h)$/;"	f	typeref:typename:Monitor *
-resetsmfact	dwm.c	/^resetsmfact(const Arg *arg) {$/;"	f	typeref:typename:void
+resetmfact	dwm.c	/^resetmfact(const Arg *arg)$/;"	f	typeref:typename:void
+resetsmfact	dwm.c	/^resetsmfact(const Arg *arg) $/;"	f	typeref:typename:void
 resize	dwm.c	/^resize(Client *c, int x, int y, int w, int h, int interact)$/;"	f	typeref:typename:void
 resizeclient	dwm.c	/^resizeclient(Client *c, int x, int y, int w, int h)$/;"	f	typeref:typename:void
 resizehints	config.def.h	/^static const int resizehints = 1;    \/* 1 means respect size hints in tiled resizals *\/$/;"	v	typeref:typename:const int
@@ -327,7 +328,7 @@ setfocus	dwm.c	/^setfocus(Client *c)$/;"	f	typeref:typename:void
 setfullscreen	dwm.c	/^setfullscreen(Client *c, int fullscreen)$/;"	f	typeref:typename:void
 setlayout	dwm.c	/^setlayout(const Arg *arg)$/;"	f	typeref:typename:void
 setmfact	dwm.c	/^setmfact(const Arg *arg)$/;"	f	typeref:typename:void
-setsmfact	dwm.c	/^setsmfact(const Arg *arg) {$/;"	f	typeref:typename:void
+setsmfact	dwm.c	/^setsmfact(const Arg *arg) $/;"	f	typeref:typename:void
 setup	dwm.c	/^setup(void)$/;"	f	typeref:typename:void
 seturgent	dwm.c	/^seturgent(Client *c, int urg)$/;"	f	typeref:typename:void
 sf	dwm.c	/^	float sf;$/;"	m	union:__anon0f53a99e060a	typeref:typename:float	file:
