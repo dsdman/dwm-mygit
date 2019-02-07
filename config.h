@@ -29,7 +29,6 @@ static const char col_magenta[]     = "#ff00ff";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
   [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-  //[SchemeSel]  = { col_green_emd, col_gray1, col_green_emd },
   [SchemeSel]  = { col_blue, col_gray1, col_blue },
 };
 
@@ -223,4 +222,5 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
+	{ ClkTabBar,            0,              Button3,        killclient,     {0} },
 };
