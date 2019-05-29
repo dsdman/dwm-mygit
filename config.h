@@ -11,18 +11,15 @@ static const int showtab            = showtab_auto; /* Default tab bar show mode
 static const int toptab             = False;    /* False means bottom tab bar */
 static const char *fonts[]          = { "Inconsolata:size=14" };
 static const char dmenufont[]       = "Inconsolata:size=14";
-static const char col_white[]       = "#ffffff";
-static const char col_black[]       = "#000000";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_base16[]      = "#d5c4a1";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_gray2,  col_base16 }, 
+	[SchemeSel]  = { col_gray4, col_cyan, col_cyan }, 
 };
 
 /* tagging */
@@ -34,7 +31,6 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",               NULL,       NULL,       0,            1,           -1 },
 	{ "SpeedCrunch",        NULL,       NULL,       0,            1,           -1 },
 	{ "st-256color",        NULL,       "scratch",  0,            1,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
@@ -45,7 +41,6 @@ static const Rule rules[] = {
 /* layout(s) */
 #include "layouts.c"
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
-static const float smfact    = 0.00; /* factor of tiled clients [0.00..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
@@ -72,16 +67,18 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray4, NULL };
-/* static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray1, "-sf", col_orange, NULL }; */
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *browser[]  = { "firefox", NULL };
-static const char *browser2[]  = { "chromium", NULL };
+static const char *browser2[]  = { "tabbed", "-c", "surf", "-pe", NULL };
+static const char *browser3[]  = { "surf", "-p", "duckduckgo.com", NULL };
 static const char *editor[]  = { "st", "-e", "nvim", NULL };
 static const char *calendar[] = { "xcalendar", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
-static const char *display_setup2[]  = { "/home/dylan/apps/src/dual-monitor-setup/dual-monitor-setup.sh", NULL };
+static const char *display_setup2[]  = { "dual-monitor-setup.sh", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
+static const char *mixer[]  = { "pavucontrol", NULL };
+static const char *mixer2[]  = { "st", "-e", "alsamixer", NULL };
 static const char *filebrowser[]  = { "pcmanfm-qt", NULL };
 static const char *screenshot[]  = { "scrot",  NULL };
 static const char *lockscreen[]  = { "sudo", "slock", NULL };
@@ -100,6 +97,8 @@ static const char *scratch[] = { "st", "-g", "146x26+150+225", "-t", "scratch", 
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+
+  /* Moving and resizing floated windows */
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 30y 0w 0h" } },
 	{ MODKEY|ShiftMask,             XK_j,      moveresize,     {.v = "0x 30y 0w 0h" } },
 	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -30y 0w 0h" } },
@@ -116,18 +115,20 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_l,      moveresize,     {.v = "0x 0y 30w 0h" } },
 	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -30w 0h" } },
 	{ MODKEY|ControlMask,           XK_h,      moveresize,     {.v = "0x 0y -30w 0h" } },
-  { MODKEY,             XK_bracketleft,      pushup,         {.i = -1 } },
-  { MODKEY,            XK_bracketright,      pushdown,       {.i = +1 } },
-  { MODKEY,                       XK_o,      winview,        {0} },
+
+  /* Launching applications + media + system keys */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
  	{ MODKEY,                       XK_y,      spawn,          {.v = editor } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filebrowser } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
-	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser2 } },
+	{ MODKEY|ControlMask,           XK_w,      spawn,          {.v = browser2 } },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser3 } },
  	{ MODKEY,                       XK_c,      spawn,          {.v = calc } },
  	{ MODKEY|ControlMask,           XK_c,      spawn,          {.v = calendar } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_a,      spawn,          {.v = mixer } },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = mixer2 } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = scratch } },
 	{ MODKEY,                       XK_Escape, spawn,          {.v = sys_mon } },
  	{ MODKEY|ControlMask|ShiftMask, XK_l,      spawn,          {.v = lockscreen } },
@@ -141,6 +142,17 @@ static const Key keys[] = {
  	{ 0,              XF86XK_AudioMute,        spawn,          {.v = mutevol} },
  	{ 0,              XF86XK_MonBrightnessUp,  spawn,          {.v = upbacklight} },
  	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbacklight} },
+
+  /* dwm operations (layout modes, killing windows, resize master, etc) */
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[6]} },
+	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_b,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -153,15 +165,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[5]} },
-	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[6]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+  { MODKEY,             XK_bracketleft,      pushup,         {.i = -1 } },
+  { MODKEY,            XK_bracketright,      pushdown,       {.i = +1 } },
+  { MODKEY,                       XK_o,      winview,        {0} },
+
+  /* Tag manipulation */
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -182,7 +190,7 @@ static const Key keys[] = {
   { MODKEY|ControlMask,           XK_q,      quit,           {1} }, 
 };
 
-/* button definitions */
+/* (mouse) button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
