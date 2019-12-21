@@ -26,7 +26,7 @@ static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan, col_cyan }, 
+	[SchemeSel]  = { col_gray4, col_gray2, col_cyan }, 
 };
 
 /* tagging */
@@ -38,6 +38,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                instance    title       tags mask     isfloating   monitor */
+	{ "pcmanfm-qt",         NULL,       NULL,       1 << 4,       0,           -1 },
 	{ "SpeedCrunch",        NULL,       NULL,       0,            1,           -1 },
 	{ "st-256color",        NULL,       "scratch",  0,            1,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
@@ -73,13 +74,23 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *termtabbed[]  = { "st-tabbed.sh", NULL };
 static const char *browser[]  = { "firefox", NULL };
 static const char *browser2[]  = { "tabbed", "-c", "surf", "-pe", NULL };
-static const char *browser3[]  = { "surf", "-p", "duckduckgo.com", NULL };
+static const char *browser3[]  = { "/home/dylan/apps/basilisk/basilisk", NULL };
+static const char *mpc_pause[]  = { "mpc", "toggle", NULL };
+static const char *mpc_next[]  = { "mpc", "next", NULL };
+static const char *mpc_prev[]  = { "mpc", "prev", NULL };
+static const char *mpc_stop[]  = { "mpc", "stop", NULL };
+static const char *mpc_replay[]  = { "mpc", "seek", "0%", NULL };
+static const char *mpc_back[]  = { "mpc", "seek", "+5", NULL };
+static const char *mpc_forward[]  = { "mpc", "seek", "-5", NULL };
+static const char *discord[]  = { "discord", NULL };
+static const char *steam[]  = { "steam", NULL };
 static const char *editor[]  = { "st", "-e", "nvim", NULL };
+static const char *imgeditor[]  = { "krita", NULL };
 static const char *calendar[] = { "xcalendar", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
 static const char *display_setup2[]  = { "dual-monitor-setup.sh", NULL };
@@ -127,14 +138,17 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
  	{ MODKEY,                       XK_y,      spawn,          {.v = editor } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filebrowser } },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = imgeditor } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY|ControlMask,           XK_w,      spawn,          {.v = browser2 } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser3 } },
  	{ MODKEY,                       XK_c,      spawn,          {.v = calc } },
  	{ MODKEY|ControlMask,           XK_c,      spawn,          {.v = calendar } },
+ 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discord } },
+ 	{ MODKEY,                       XK_s,      spawn,          {.v = steam } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termtabbed } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termtabbed } },
+	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_a,      spawn,          {.v = mixer } },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = mixer2 } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = scratch } },
@@ -150,6 +164,13 @@ static const Key keys[] = {
  	{ 0,              XF86XK_AudioMute,        spawn,          {.v = mutevol} },
  	{ 0,              XF86XK_MonBrightnessUp,  spawn,          {.v = upbacklight} },
  	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbacklight} },
+ 	{ MODKEY,                      XK_F1,      spawn,          {.v = mpc_pause} },
+ 	{ MODKEY,                      XK_F2,      spawn,          {.v = mpc_prev} },
+ 	{ MODKEY,                      XK_F3,      spawn,          {.v = mpc_next} },
+ 	{ MODKEY,                      XK_F4,      spawn,          {.v = mpc_stop} },
+ 	{ MODKEY,                      XK_F5,      spawn,          {.v = mpc_replay} },
+ 	{ MODKEY,                      XK_F6,      spawn,          {.v = mpc_forward} },
+ 	{ MODKEY,                      XK_F7,      spawn,          {.v = mpc_back} },
 
   /* dwm operations (layout modes, killing windows, resize master, etc) */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
@@ -175,7 +196,6 @@ static const Key keys[] = {
   { MODKEY,            XK_bracketright,      pushdown,       {.i = +1 } },
   { MODKEY,                       XK_o,      winview,        {0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-  { MODKEY|ControlMask,           XK_q,      quit,           {1} }, 
 
   /* Tag/monitor manipulation */
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -193,6 +213,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_Caps_Lock,              8)
 	TAGKEYS(                        XK_grave,                  9)
 };
 

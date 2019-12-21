@@ -1,5 +1,6 @@
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
@@ -37,6 +38,7 @@ Key	dwm.c	/^} Key;$/;"	t	typeref:struct:__anon0f53a99e0808	file:
 LENGTH	dwm.c	/^#define LENGTH(/;"	d	file:
 Layout	dwm.c	/^} Layout;$/;"	t	typeref:struct:__anon0f53a99e0908	file:
 MAX	util.h	/^#define MAX(/;"	d
+MAXTABS	dwm.c	/^#define MAXTABS /;"	d	file:
 MIN	util.h	/^#define MIN(/;"	d
 MODKEY	config.def.h	/^#define MODKEY /;"	d
 MODKEY	config.h	/^#define MODKEY /;"	d
@@ -101,9 +103,9 @@ blw	dwm.c	/^static int bh, blw = 0;      \/* bar geometry *\/$/;"	v	typeref:type
 borderpx	config.def.h	/^static const unsigned int borderpx  = 1;        \/* border pixel of windows *\/$/;"	v	typeref:typename:const unsigned int
 borderpx	config.h	/^static const unsigned int borderpx  = 1;        \/* border pixel of windows *\/$/;"	v	typeref:typename:const unsigned int
 broken	dwm.c	/^static const char broken[] = "broken";$/;"	v	typeref:typename:const char[]	file:
-browser	config.h	/^static const char *browser[]  = { "chromium", NULL };$/;"	v	typeref:typename:const char * []
-browser2	config.h	/^static const char *browser2[]  = { "firefox", NULL };$/;"	v	typeref:typename:const char * []
-browser3	config.h	/^static const char *browser3[]  = { "waterfox", NULL };$/;"	v	typeref:typename:const char * []
+browser	config.h	/^static const char *browser[]  = { "palemoon", NULL };$/;"	v	typeref:typename:const char * []
+browser2	config.h	/^static const char *browser2[]  = { "tabbed", "-c", "surf", "-pe", NULL };$/;"	v	typeref:typename:const char * []
+browser3	config.h	/^static const char *browser3[]  = { "\/home\/dylan\/apps\/basilisk\/basilisk", NULL };$/;"	v	typeref:typename:const char * []
 bstack	layouts.c	/^bstack(Monitor *m) {$/;"	f	typeref:typename:void	file:
 bstackhoriz	layouts.c	/^bstackhoriz(Monitor *m) {$/;"	f	typeref:typename:void	file:
 button	dwm.c	/^	unsigned int button;$/;"	m	struct:__anon0f53a99e0708	typeref:typename:unsigned int	file:
@@ -121,8 +123,6 @@ cleanupmon	dwm.c	/^cleanupmon(Monitor *mon)$/;"	f	typeref:typename:void
 click	dwm.c	/^	unsigned int click;$/;"	m	struct:__anon0f53a99e0708	typeref:typename:unsigned int	file:
 clientmessage	dwm.c	/^clientmessage(XEvent *e)$/;"	f	typeref:typename:void
 clients	dwm.c	/^	Client *clients;$/;"	m	struct:Monitor	typeref:typename:Client *	file:
-col_biege	config.h	/^static const char col_biege[]       = "#f9ae91";$/;"	v	typeref:typename:const char[]
-col_black	config.h	/^static const char col_black[]       = "#000000";$/;"	v	typeref:typename:const char[]
 col_cyan	config.def.h	/^static const char col_cyan[]        = "#005577";$/;"	v	typeref:typename:const char[]
 col_cyan	config.h	/^static const char col_cyan[]        = "#005577";$/;"	v	typeref:typename:const char[]
 col_gray1	config.def.h	/^static const char col_gray1[]       = "#222222";$/;"	v	typeref:typename:const char[]
@@ -133,11 +133,6 @@ col_gray3	config.def.h	/^static const char col_gray3[]       = "#bbbbbb";$/;"	v	
 col_gray3	config.h	/^static const char col_gray3[]       = "#bbbbbb";$/;"	v	typeref:typename:const char[]
 col_gray4	config.def.h	/^static const char col_gray4[]       = "#eeeeee";$/;"	v	typeref:typename:const char[]
 col_gray4	config.h	/^static const char col_gray4[]       = "#eeeeee";$/;"	v	typeref:typename:const char[]
-col_magenta	config.h	/^static const char col_magenta[]     = "#ff00ff";$/;"	v	typeref:typename:const char[]
-col_orange	config.h	/^static const char col_orange[]      = "#d95910";$/;"	v	typeref:typename:const char[]
-col_red	config.h	/^static const char col_red[]         = "#FF0000";$/;"	v	typeref:typename:const char[]
-col_sun	config.h	/^static const char col_sun[]         = "#fdb813";$/;"	v	typeref:typename:const char[]
-col_white	config.h	/^static const char col_white[]       = "#ffffff";$/;"	v	typeref:typename:const char[]
 colors	config.def.h	/^static const char *colors[][3]      = {$/;"	v	typeref:typename:const char * [][3]
 colors	config.h	/^static const char *colors[][3]      = {$/;"	v	typeref:typename:const char * [][3]
 configure	dwm.c	/^configure(Client *c)$/;"	f	typeref:typename:void
@@ -146,17 +141,17 @@ configurerequest	dwm.c	/^configurerequest(XEvent *e)$/;"	f	typeref:typename:void
 createmon	dwm.c	/^createmon(void)$/;"	f	typeref:typename:Monitor *
 cursor	drw.h	/^	Cursor cursor;$/;"	m	struct:__anon0f5116480108	typeref:typename:Cursor
 cursor	dwm.c	/^static Cur *cursor[CurLast];$/;"	v	typeref:typename:Cur * []	file:
-deck	layouts.c	/^deck(Monitor *m) {$/;"	f	typeref:typename:void
 destroynotify	dwm.c	/^destroynotify(XEvent *e)$/;"	f	typeref:typename:void
 detach	dwm.c	/^detach(Client *c)$/;"	f	typeref:typename:void
 detachstack	dwm.c	/^detachstack(Client *c)$/;"	f	typeref:typename:void
 die	util.c	/^die(const char *fmt, ...) {$/;"	f	typeref:typename:void
 dirtomon	dwm.c	/^dirtomon(int dir)$/;"	f	typeref:typename:Monitor *
-display_setup2	config.h	/^static const char *display_setup2[]  = { "\/home\/dylan\/apps\/src\/dual-monitor-setup\/dual-mon/;"	v	typeref:typename:const char * []
+discord	config.h	/^static const char *discord[]  = { "discord", NULL };$/;"	v	typeref:typename:const char * []
+display_setup2	config.h	/^static const char *display_setup2[]  = { "dual-monitor-setup.sh", NULL };$/;"	v	typeref:typename:const char * []
 dmenucmd	config.def.h	/^static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray/;"	v	typeref:typename:const char * []
 dmenucmd	config.h	/^static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", co/;"	v	typeref:typename:const char * []
 dmenufont	config.def.h	/^static const char dmenufont[]       = "monospace:size=10";$/;"	v	typeref:typename:const char[]
-dmenufont	config.h	/^static const char dmenufont[]       = "Inconsolata:size=14";$/;"	v	typeref:typename:const char[]
+dmenufont	config.h	/^static const char dmenufont[]       = "Inconsolata:size=12";$/;"	v	typeref:typename:const char[]
 dmenumon	config.def.h	/^static char dmenumon[2] = "0"; \/* component of dmenucmd, manipulated in spawn() *\/$/;"	v	typeref:typename:char[2]
 dmenumon	config.h	/^static char dmenumon[2] = "0";$/;"	v	typeref:typename:char[2]
 downbacklight	config.h	/^static const char *downbacklight[] = { "sudo", "xbacklight", "-dec", "10", NULL };$/;"	v	typeref:typename:const char * []
@@ -167,7 +162,6 @@ dpy	dwm.c	/^static Display *dpy;$/;"	v	typeref:typename:Display *	file:
 drawable	drw.h	/^	Drawable drawable;$/;"	m	struct:__anon0f5116480308	typeref:typename:Drawable
 drawbar	dwm.c	/^drawbar(Monitor *m)$/;"	f	typeref:typename:void
 drawbars	dwm.c	/^drawbars(void)$/;"	f	typeref:typename:void
-drawstatusbar	dwm.c	/^drawstatusbar(Monitor *m, int bh, char* stext) {$/;"	f	typeref:typename:int
 drw	dwm.c	/^static Drw *drw;$/;"	v	typeref:typename:Drw *	file:
 drw_clr_create	drw.c	/^drw_clr_create(Drw *drw, Clr *dest, const char *clrname)$/;"	f	typeref:typename:void
 drw_create	drw.c	/^drw_create(Display *dpy, int screen, Window root, unsigned int w, unsigned int h)$/;"	f	typeref:typename:Drw *
@@ -190,14 +184,13 @@ editor	config.h	/^static const char *editor[]  = { "st", "-e", "nvim", NULL };$/
 enternotify	dwm.c	/^enternotify(XEvent *e)$/;"	f	typeref:typename:void
 expose	dwm.c	/^expose(XEvent *e)$/;"	f	typeref:typename:void
 f	dwm.c	/^	float f;$/;"	m	union:__anon0f53a99e060a	typeref:typename:float	file:
-filebrowser	config.h	/^static const char *filebrowser[]  = { "st", "-e", "ranger", NULL };$/;"	v	typeref:typename:const char * []
-filebrowser2	config.h	/^static const char *filebrowser2[]  = { "pcmanfm-qt", NULL };$/;"	v	typeref:typename:const char * []
+filebrowser	config.h	/^static const char *filebrowser[]  = { "pcmanfm-qt", NULL };$/;"	v	typeref:typename:const char * []
 focus	dwm.c	/^focus(Client *c)$/;"	f	typeref:typename:void
 focusin	dwm.c	/^focusin(XEvent *e)$/;"	f	typeref:typename:void
 focusmon	dwm.c	/^focusmon(const Arg *arg)$/;"	f	typeref:typename:void
 focusstack	dwm.c	/^focusstack(const Arg *arg)$/;"	f	typeref:typename:void
 fonts	config.def.h	/^static const char *fonts[]          = { "monospace:size=10" };$/;"	v	typeref:typename:const char * []
-fonts	config.h	/^static const char *fonts[]          = { "Inconsolata:size=14" };$/;"	v	typeref:typename:const char * []
+fonts	config.h	/^static const char *fonts[]          = { "Inconsolata:size=12" };$/;"	v	typeref:typename:const char * []
 fonts	drw.h	/^	Fnt *fonts;$/;"	m	struct:__anon0f5116480308	typeref:typename:Fnt *
 func	dwm.c	/^	void (*func)(const Arg *);$/;"	m	struct:__anon0f53a99e0808	typeref:typename:void (*)(const Arg *)	file:
 func	dwm.c	/^	void (*func)(const Arg *arg);$/;"	m	struct:__anon0f53a99e0708	typeref:typename:void (*)(const Arg * arg)	file:
@@ -214,6 +207,7 @@ h	drw.h	/^	unsigned int w, h;$/;"	m	struct:__anon0f5116480308	typeref:typename:u
 h	dwm.c	/^	int x, y, w, h;$/;"	m	struct:Client	typeref:typename:int	file:
 handler	dwm.c	/^static void (*handler[LASTEvent]) (XEvent *) = {$/;"	v	typeref:typename:void (* [LASTEvent])(XEvent *)	file:
 i	dwm.c	/^	int i;$/;"	m	union:__anon0f53a99e060a	typeref:typename:int	file:
+imgeditor	config.h	/^static const char *imgeditor[]  = { "krita", NULL };$/;"	v	typeref:typename:const char * []
 inch	dwm.c	/^	int basew, baseh, incw, inch, maxw, maxh, minw, minh;$/;"	m	struct:Client	typeref:typename:int	file:
 incnmaster	dwm.c	/^incnmaster(const Arg *arg)$/;"	f	typeref:typename:void
 incw	dwm.c	/^	int basew, baseh, incw, inch, maxw, maxh, minw, minh;$/;"	m	struct:Client	typeref:typename:int	file:
@@ -228,7 +222,6 @@ keypress	dwm.c	/^keypress(XEvent *e)$/;"	f	typeref:typename:void
 keys	config.def.h	/^static Key keys[] = {$/;"	v	typeref:typename:Key[]
 keys	config.h	/^static const Key keys[] = {$/;"	v	typeref:typename:const Key[]
 keysym	dwm.c	/^	KeySym keysym;$/;"	m	struct:__anon0f53a99e0808	typeref:typename:KeySym	file:
-kill_compositor	config.h	/^static const char *kill_compositor[]  = { "killall", "compton", NULL };$/;"	v	typeref:typename:const char * []
 killclient	dwm.c	/^killclient(const Arg *arg)$/;"	f	typeref:typename:void
 layouts	config.def.h	/^static const Layout layouts[] = {$/;"	v	typeref:typename:const Layout[]
 layouts	config.h	/^static const Layout layouts[] = {$/;"	v	typeref:typename:const Layout[]
@@ -253,7 +246,8 @@ mh	dwm.c	/^	int mx, my, mw, mh;   \/* screen size *\/$/;"	m	struct:Monitor	typer
 mina	dwm.c	/^	float mina, maxa;$/;"	m	struct:Client	typeref:typename:float	file:
 minh	dwm.c	/^	int basew, baseh, incw, inch, maxw, maxh, minw, minh;$/;"	m	struct:Client	typeref:typename:int	file:
 minw	dwm.c	/^	int basew, baseh, incw, inch, maxw, maxh, minw, minh;$/;"	m	struct:Client	typeref:typename:int	file:
-minwsz	config.h	/^static const unsigned int minwsz    = 5;       \/* Minimal heigt of a client for smfact *\/$/;"	v	typeref:typename:const unsigned int
+mixer	config.h	/^static const char *mixer[]  = { "pavucontrol", NULL };$/;"	v	typeref:typename:const char * []
+mixer2	config.h	/^static const char *mixer2[]  = { "st", "-e", "alsamixer", NULL };$/;"	v	typeref:typename:const char * []
 mod	dwm.c	/^	unsigned int mod;$/;"	m	struct:__anon0f53a99e0808	typeref:typename:unsigned int	file:
 mon	dwm.c	/^	Monitor *mon;$/;"	m	struct:Client	typeref:typename:Monitor *	file:
 monitor	dwm.c	/^	int monitor;$/;"	m	struct:__anon0f53a99e0a08	typeref:typename:int	file:
@@ -262,6 +256,13 @@ mons	dwm.c	/^static Monitor *mons, *selmon;$/;"	v	typeref:typename:Monitor *	fil
 motionnotify	dwm.c	/^motionnotify(XEvent *e)$/;"	f	typeref:typename:void
 movemouse	dwm.c	/^movemouse(const Arg *arg)$/;"	f	typeref:typename:void
 moveresize	moveresize.c	/^moveresize(const Arg *arg) {$/;"	f	typeref:typename:void
+mpc_back	config.h	/^static const char *mpc_back[]  = { "mpc", "seek", "+5", NULL };$/;"	v	typeref:typename:const char * []
+mpc_forward	config.h	/^static const char *mpc_forward[]  = { "mpc", "seek", "-5", NULL };$/;"	v	typeref:typename:const char * []
+mpc_next	config.h	/^static const char *mpc_next[]  = { "mpc", "next", NULL };$/;"	v	typeref:typename:const char * []
+mpc_pause	config.h	/^static const char *mpc_pause[]  = { "mpc", "toggle", NULL };$/;"	v	typeref:typename:const char * []
+mpc_prev	config.h	/^static const char *mpc_prev[]  = { "mpc", "prev", NULL };$/;"	v	typeref:typename:const char * []
+mpc_replay	config.h	/^static const char *mpc_replay[]  = { "mpc", "seek", "0%", NULL };$/;"	v	typeref:typename:const char * []
+mpc_stop	config.h	/^static const char *mpc_stop[]  = { "mpc", "stop", NULL };$/;"	v	typeref:typename:const char * []
 mutevol	config.h	/^static const char *mutevol[] = { "amixer", "-D", "pulse", "sset", "Master", "mute", NULL };$/;"	v	typeref:typename:const char * []
 mw	dwm.c	/^	int mx, my, mw, mh;   \/* screen size *\/$/;"	m	struct:Monitor	typeref:typename:int	file:
 mx	dwm.c	/^	int mx, my, mw, mh;   \/* screen size *\/$/;"	m	struct:Monitor	typeref:typename:int	file:
@@ -287,7 +288,7 @@ oldx	dwm.c	/^	int oldx, oldy, oldw, oldh;$/;"	m	struct:Client	typeref:typename:i
 oldy	dwm.c	/^	int oldx, oldy, oldw, oldh;$/;"	m	struct:Client	typeref:typename:int	file:
 pattern	drw.h	/^	FcPattern *pattern;$/;"	m	struct:Fnt	typeref:typename:FcPattern *
 pop	dwm.c	/^pop(Client *c)$/;"	f	typeref:typename:void
-poweroff	config.h	/^static const char *poweroff[] = { "sudo", "poweroff", NULL};$/;"	v	typeref:typename:const char * []
+poweroff	config.h	/^static const char *poweroff[] = { "sudo", "poweroff", NULL };$/;"	v	typeref:typename:const char * []
 prevc	push.c	/^prevc(Client *c, float f) {$/;"	f	typeref:typename:Client *	file:
 propertynotify	dwm.c	/^propertynotify(XEvent *e)$/;"	f	typeref:typename:void
 pushdown	push.c	/^pushdown(const Arg *arg) {$/;"	f	typeref:typename:void	file:
@@ -296,14 +297,12 @@ quit	dwm.c	/^quit(const Arg *arg)$/;"	f	typeref:typename:void
 reboot	config.h	/^static const char *reboot[] = { "sudo", "reboot", NULL};$/;"	v	typeref:typename:const char * []
 recttomon	dwm.c	/^recttomon(int x, int y, int w, int h)$/;"	f	typeref:typename:Monitor *
 resetmfact	dwm.c	/^resetmfact(const Arg *arg)$/;"	f	typeref:typename:void
-resetsmfact	dwm.c	/^resetsmfact(const Arg *arg) $/;"	f	typeref:typename:void
 resize	dwm.c	/^resize(Client *c, int x, int y, int w, int h, int interact)$/;"	f	typeref:typename:void
 resizeclient	dwm.c	/^resizeclient(Client *c, int x, int y, int w, int h)$/;"	f	typeref:typename:void
 resizehints	config.def.h	/^static const int resizehints = 1;    \/* 1 means respect size hints in tiled resizals *\/$/;"	v	typeref:typename:const int
 resizehints	config.h	/^static const int resizehints = 0;    \/* 1 means respect size hints in tiled resizals *\/$/;"	v	typeref:typename:const int
 resizemouse	dwm.c	/^resizemouse(const Arg *arg)$/;"	f	typeref:typename:void
 restack	dwm.c	/^restack(Monitor *m)$/;"	f	typeref:typename:void
-restart	dwm.c	/^static int restart = 0;$/;"	v	typeref:typename:int	file:
 root	drw.h	/^	Window root;$/;"	m	struct:__anon0f5116480308	typeref:typename:Window
 root	dwm.c	/^static Window root, wmcheckwin;$/;"	v	typeref:typename:Window	file:
 rules	config.def.h	/^static const Rule rules[] = {$/;"	v	typeref:typename:const Rule[]
@@ -328,28 +327,23 @@ setfocus	dwm.c	/^setfocus(Client *c)$/;"	f	typeref:typename:void
 setfullscreen	dwm.c	/^setfullscreen(Client *c, int fullscreen)$/;"	f	typeref:typename:void
 setlayout	dwm.c	/^setlayout(const Arg *arg)$/;"	f	typeref:typename:void
 setmfact	dwm.c	/^setmfact(const Arg *arg)$/;"	f	typeref:typename:void
-setsmfact	dwm.c	/^setsmfact(const Arg *arg) $/;"	f	typeref:typename:void
 setup	dwm.c	/^setup(void)$/;"	f	typeref:typename:void
 seturgent	dwm.c	/^seturgent(Client *c, int urg)$/;"	f	typeref:typename:void
-sf	dwm.c	/^	float sf;$/;"	m	union:__anon0f53a99e060a	typeref:typename:float	file:
 sh	dwm.c	/^static int sw, sh;           \/* X display screen geometry width, height *\/$/;"	v	typeref:typename:int	file:
 showbar	config.def.h	/^static const int showbar            = 1;        \/* 0 means no bar *\/$/;"	v	typeref:typename:const int
 showbar	config.h	/^static const int showbar            = 1;        \/* 0 means no bar *\/$/;"	v	typeref:typename:const int
 showbar	dwm.c	/^	int showbar;$/;"	m	struct:Monitor	typeref:typename:int	file:
 showhide	dwm.c	/^showhide(Client *c)$/;"	f	typeref:typename:void
 sigchld	dwm.c	/^sigchld(int unused)$/;"	f	typeref:typename:void
-sighup	dwm.c	/^sighup(int unused)$/;"	f	typeref:typename:void
-sigterm	dwm.c	/^sigterm(int unused)$/;"	f	typeref:typename:void
-smfact	config.h	/^static const float smfact    = 0.00; \/* factor of tiled clients [0.00..0.95] *\/$/;"	v	typeref:typename:const float
-smfact	dwm.c	/^	float smfact;$/;"	m	struct:Monitor	typeref:typename:float	file:
 snap	config.def.h	/^static const unsigned int snap      = 32;       \/* snap pixel *\/$/;"	v	typeref:typename:const unsigned int
 snap	config.h	/^static const unsigned int snap      = 16;        \/* snap pixel *\/$/;"	v	typeref:typename:const unsigned int
 snext	dwm.c	/^	Client *snext;$/;"	m	struct:Client	typeref:typename:Client *	file:
 spawn	dwm.c	/^spawn(const Arg *arg)$/;"	f	typeref:typename:void
 stack	dwm.c	/^	Client *stack;$/;"	m	struct:Monitor	typeref:typename:Client *	file:
-stext	dwm.c	/^static char stext[1024];$/;"	v	typeref:typename:char[1024]	file:
+steam	config.h	/^static const char *steam[]  = { "steam", NULL };$/;"	v	typeref:typename:const char * []
+stext	dwm.c	/^static char stext[256];$/;"	v	typeref:typename:char[256]	file:
 suspend	config.h	/^static const char *suspend[] = { "sudo", "s2ram", NULL};$/;"	v	typeref:typename:const char * []
-suspend_lock	config.h	/^static const char *suspend_lock[] = { "\/home\/dylan\/apps\/lock+suspend.sh", NULL};$/;"	v	typeref:typename:const char * []
+suspend_lock	config.h	/^static const char *suspend_lock[] = { "\/home\/dylan\/apps\/bin\/lock+suspend.sh", NULL};$/;"	v	typeref:typename:const char * []
 sw	dwm.c	/^static int sw, sh;           \/* X display screen geometry width, height *\/$/;"	v	typeref:typename:int	file:
 symbol	dwm.c	/^	const char *symbol;$/;"	m	struct:__anon0f53a99e0908	typeref:typename:const char *	file:
 sys_mon	config.h	/^static const char *sys_mon[]  = { "st", "-e", "htop", NULL };$/;"	v	typeref:typename:const char * []
@@ -362,7 +356,7 @@ tags	dwm.c	/^	unsigned int tags;$/;"	m	struct:__anon0f53a99e0a08	typeref:typenam
 tagset	dwm.c	/^	unsigned int tagset[2];$/;"	m	struct:Monitor	typeref:typename:unsigned int[2]	file:
 termcmd	config.def.h	/^static const char *termcmd[]  = { "st", NULL };$/;"	v	typeref:typename:const char * []
 termcmd	config.h	/^static const char *termcmd[]  = { "st", NULL };$/;"	v	typeref:typename:const char * []
-termtabbed	config.h	/^static const char *termtabbed[]  = { "\/home\/dylan\/apps\/src\/st-tabbed", NULL };$/;"	v	typeref:typename:const char * []
+termtabbed	config.h	/^static const char *termtabbed[]  = { "st-tabbed.sh", NULL };$/;"	v	typeref:typename:const char * []
 tile	dwm.c	/^tile(Monitor *m)$/;"	f	typeref:typename:void
 title	dwm.c	/^	const char *title;$/;"	m	struct:__anon0f53a99e0a08	typeref:typename:const char *	file:
 togglebar	dwm.c	/^togglebar(const Arg *arg)$/;"	f	typeref:typename:void
