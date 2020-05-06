@@ -16,7 +16,7 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 16;        /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Inconsolata:size=12" };
+static const char *fonts[]          = { "Inconsolata:size=12", "NotoColorEmoji:size=12" };
 static const char dmenufont[]       = "Inconsolata:size=12";
 static const char base00[]          = "#181818";
 static const char base01[]          = "#282828";
@@ -41,7 +41,6 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-/*static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "E" }; */
 static const char *tags[] = { "Z", "X", "C", "A", "S", "D", "Q", "W", "E", "~" };
 
 static const Rule rules[] = {
@@ -52,7 +51,7 @@ static const Rule rules[] = {
 	/* class                instance    title       tags mask     isfloating   monitor */
 	{ "pcmanfm-qt",         NULL,       NULL,       1 << 4,       0,           -1 },
 	{ "SpeedCrunch",        NULL,       NULL,       1 << 9,       1,           -1 },
-	{ "st-256color",        NULL,       "scratch",  1 << 9,       1,           -1 },
+	{  NULL,                NULL,       "scratch",  1 << 9,       1,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
 	{ "XCalendar",          NULL,       NULL,       0,            1,           -1 },
 	{ "hl_linux",           NULL,       NULL,       0,            1,           -1 },
@@ -91,6 +90,7 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *termtabbed[]  = { "st-tabbed.sh", NULL };
 static const char *browser[]  = { "firefox", NULL };
 static const char *browser2[]  = { "tabbed", "-c", "surf", "-pe", NULL };
+static const char *pulse_switch[]  = { "switch-audio.sh", NULL };
 static const char *mpc_pause[]  = { "mpc", "toggle", NULL };
 static const char *mpc_next[]  = { "mpc", "next", NULL };
 static const char *mpc_prev[]  = { "mpc", "prev", NULL };
@@ -101,6 +101,7 @@ static const char *mpc_forward[]  = { "mpc", "seek", "-5", NULL };
 static const char *discord[]  = { "discord", NULL };
 static const char *steam[]  = { "nv", "steam", NULL };
 static const char *imgeditor[]  = { "krita", NULL };
+static const char *transmission[]  = { "transmission-gtk", NULL };
 static const char *calendar[] = { "xcalendar", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
 static const char *display_setup2[]  = { "dual-monitor-setup.sh", NULL };
@@ -151,9 +152,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_2,      spawn,          {.v = filebrowser } },
  	{ MODKEY,                       XK_3,      spawn,          {.v = calc } },
 	{ MODKEY,                       XK_4,      spawn,          {.v = mixer } },
-	{ MODKEY|ShiftMask,             XK_4,      spawn,          {.v = mixer2 } },
+	{ MODKEY|ControlMask,           XK_4,      spawn,          {.v = mixer2 } },
+	{ MODKEY|ShiftMask,             XK_4,      spawn,          {.v = pulse_switch } },
 	{ MODKEY,                       XK_5,      spawn,          {.v = imgeditor } },
  	{ MODKEY,                       XK_6,      spawn,          {.v = discord } },
+ 	{ MODKEY,                       XK_7,      spawn,          {.v = transmission } },
  	{ MODKEY|ShiftMask,             XK_6,      spawn,          {.v = steam } },
  	{ MODKEY,                       XK_9,      spawn,          {.v = calendar } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
