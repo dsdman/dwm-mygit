@@ -49,8 +49,8 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                instance    title       tags mask     isfloating   monitor */
-	{ "pcmanfm-qt",         NULL,       NULL,       1 << 4,       0,           -1 },
-	{ "SpeedCrunch",        NULL,       NULL,       1 << 9,       1,           -1 },
+	{ "dolphin",            NULL,       NULL,       1 << 4,       0,           -1 },
+	{ "SpeedCrunch",        NULL,       NULL,       0,            1,           -1 },
 	{  NULL,                NULL,       "scratch",  1 << 9,       1,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
 	{ "XCalendar",          NULL,       NULL,       0,            1,           -1 },
@@ -98,17 +98,18 @@ static const char *mpc_stop[]  = { "mpc", "stop", NULL };
 static const char *mpc_replay[]  = { "mpc", "seek", "0%", NULL };
 static const char *mpc_back[]  = { "mpc", "seek", "+5", NULL };
 static const char *mpc_forward[]  = { "mpc", "seek", "-5", NULL };
+static const char *ncmpcpp[]  = { "st", "-e", "ncmpcpp", NULL };
 static const char *discord[]  = { "discord", NULL };
 static const char *steam[]  = { "nv", "steam", NULL };
 static const char *imgeditor[]  = { "krita", NULL };
-static const char *transmission[]  = { "transmission-gtk", NULL };
+static const char *torrentclient[]  = { "qbittorrent", NULL };
 static const char *calendar[] = { "xcalendar", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
 static const char *display_setup2[]  = { "dual-monitor-setup.sh", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
 static const char *mixer[]  = { "pavucontrol", NULL };
 static const char *mixer2[]  = { "st", "-e", "alsamixer", NULL };
-static const char *filebrowser[]  = { "pcmanfm-qt", NULL };
+static const char *filebrowser[]  = { "dolphin", NULL };
 static const char *screenshot[]  = { "scrot",  NULL };
 static const char *lockscreen[]  = { "sudo", "slock", NULL };
 static const char *suspend[] = { "sudo", "s2ram", NULL};
@@ -146,7 +147,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_h,      moveresize,     {.v = "0x 0y -30w 0h" } },
 
   /* Launching applications + media + system keys */
-	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_1,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_1,      spawn,          {.v = browser2 } },
 	{ MODKEY,                       XK_2,      spawn,          {.v = filebrowser } },
@@ -156,7 +157,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_4,      spawn,          {.v = pulse_switch } },
 	{ MODKEY,                       XK_5,      spawn,          {.v = imgeditor } },
  	{ MODKEY,                       XK_6,      spawn,          {.v = discord } },
- 	{ MODKEY,                       XK_7,      spawn,          {.v = transmission } },
+ 	{ MODKEY,                       XK_7,      spawn,          {.v = torrentclient } },
  	{ MODKEY|ShiftMask,             XK_6,      spawn,          {.v = steam } },
  	{ MODKEY,                       XK_9,      spawn,          {.v = calendar } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
@@ -182,15 +183,17 @@ static const Key keys[] = {
  	{ MODKEY,                      XK_F5,      spawn,          {.v = mpc_replay} },
  	{ MODKEY,                      XK_F6,      spawn,          {.v = mpc_forward} },
  	{ MODKEY,                      XK_F7,      spawn,          {.v = mpc_back} },
+ 	{ MODKEY,                      XK_F8,      spawn,          {.v = ncmpcpp} },
 
   /* dwm operations (layout modes, killing windows, resize master, etc) */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ControlMask,           XK_space,  setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[5]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_r,      setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
