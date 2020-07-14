@@ -33,7 +33,7 @@ dwm draws a small border around windows to indicate the focus state.
 .SH OPTIONS
 .TP
 .B \-v
-prints version information to standard output, then exits.
+prints version information to stderr, then exits.
 .SH USAGE
 .SS Status bar
 .TP
@@ -109,6 +109,9 @@ Increase master area size.
 .TP
 .B Mod1\-h
 Decrease master area size.
+.TP
+.B Mod1\-o
+Select view of the window in focus. The list of tags to be displayed is matched to the window tag list.
 .TP
 .B Mod1\-Return
 Zooms/cycles focused window to/from master area (tiled layouts only).
