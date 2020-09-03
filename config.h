@@ -76,6 +76,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0";
 static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", base00, "-nf", base04, "-sb", base02, "-sf", base05, NULL };
+static const char *xkill[] = { "xkill", NULL };
 static const char *termcmd[]  = { "konsole", NULL };
 static const char *termtabbed[]  = { "st-tabbed.sh", NULL };
 static const char *browser[]  = { "firefox", NULL };
@@ -139,6 +140,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_h,      moveresize,     {.v = "0x 0y -30w 0h" } },
 
   /* Launching applications + media + system keys */
+	{ MODKEY,                   XK_BackSpace,  spawn,          {.v = xkill } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_1,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_1,      spawn,          {.v = browser2 } },
