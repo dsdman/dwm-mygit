@@ -77,7 +77,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0";
 static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", base00, "-nf", base04, "-sb", base02, "-sf", base05, NULL };
 static const char *xkill[] = { "xkill", NULL };
-static const char *termcmd[]  = { "konsole", NULL };
+static const char *termcmd[]  = { "st", NULL };
 static const char *termtabbed[]  = { "st-tabbed.sh", NULL };
 static const char *browser[]  = { "firefox", NULL };
 static const char *browser2[]  = { "surf", NULL };
@@ -90,18 +90,18 @@ static const char *mpc_stop[]  = { "mpc", "stop", NULL };
 static const char *mpc_replay[]  = { "mpc", "seek", "0%", NULL };
 static const char *mpc_back[]  = { "mpc", "seek", "+5", NULL };
 static const char *mpc_forward[]  = { "mpc", "seek", "-5", NULL };
-static const char *ncmpcpp[]  = { "konsole", "-e", "ncmpcpp", NULL };
+static const char *ncmpcpp[]  = { "st", "-e", "ncmpcpp", NULL };
 static const char *discord[]  = { "discord", NULL };
 static const char *steam[]  = { "nv", "steam", NULL };
 static const char *imgeditor[]  = { "krita", NULL };
 static const char *vscode[]  = { "vscode", NULL };
 static const char *torrentclient[]  = { "qbittorrent", NULL };
 static const char *calendar[] = { "xcalendar", NULL };
-static const char *sys_mon[]  = { "konsole", "-e", "htop", NULL };
+static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
 static const char *display_setup2[]  = { "dual-monitor-setup.sh", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
 static const char *mixer[]  = { "pavucontrol", NULL };
-static const char *mixer2[]  = { "konsole", "-e", "alsamixer", NULL };
+static const char *mixer2[]  = { "st", "-e", "alsamixer", NULL };
 static const char *filebrowser[]  = { "krusader", NULL };
 static const char *screenshot[]  = { "scrot",  NULL };
 static const char *lockscreen[]  = { "sudo", "slock", NULL };
@@ -116,28 +116,9 @@ static const char *upbacklight[] = { "sudo", "xbacklight", "-inc", "10", NULL };
 static const char *downbacklight[] = { "sudo", "xbacklight", "-dec", "10", NULL };
 static const char *scratch[] = { "st", "-g", "239x25+0+0", "-t", "scratch", NULL };
 #include "push.c"
-#include "moveresize.c"
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-
-  /* Moving and resizing floated windows */
-	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 30y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_j,      moveresize,     {.v = "0x 30y 0w 0h" } },
-	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -30y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_k,      moveresize,     {.v = "0x -30y 0w 0h" } },
-	{ MODKEY,                       XK_Right,  moveresize,     {.v = "30x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_l,      moveresize,     {.v = "30x 0y 0w 0h" } },
-	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-30x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_h,      moveresize,     {.v = "-30x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 30h" } },
-	{ MODKEY|ControlMask,           XK_j,      moveresize,     {.v = "0x 0y 0w 30h" } },
-	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -30h" } },
-	{ MODKEY|ControlMask,           XK_k,      moveresize,     {.v = "0x 0y 0w -30h" } },
-	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 30w 0h" } },
-	{ MODKEY|ControlMask,           XK_l,      moveresize,     {.v = "0x 0y 30w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -30w 0h" } },
-	{ MODKEY|ControlMask,           XK_h,      moveresize,     {.v = "0x 0y -30w 0h" } },
 
   /* Launching applications + media + system keys */
 	{ MODKEY,                   XK_BackSpace,  spawn,          {.v = xkill } },
@@ -157,8 +138,8 @@ static const Key keys[] = {
  	{ MODKEY|ShiftMask,             XK_6,      spawn,          {.v = steam } },
  	{ MODKEY,                       XK_9,      spawn,          {.v = calendar } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termtabbed } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termtabbed } },
+	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmd } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = scratch } },
 	{ MODKEY,                       XK_Escape, spawn,          {.v = sys_mon } },
  	{ MODKEY,                       XK_F9,     spawn,          {.v = lockscreen } },
