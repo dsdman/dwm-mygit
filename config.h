@@ -42,6 +42,7 @@ static const Rule rules[] = {
 	{ "krusader",           NULL,       NULL,       1 << 4,       0,           -1 },
 	{ "SpeedCrunch",        NULL,       NULL,       0,            1,           -1 },
 	{  NULL,                NULL,       "scratch",  1 << 9,       1,           -1 },
+	{  NULL,                NULL,       "ncmpcpp",  1 << 5,       0,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
 	{ "XCalendar",          NULL,       NULL,       0,            1,           -1 },
 	{ "hl_linux",           NULL,       NULL,       0,            1,           -1 },
@@ -90,7 +91,7 @@ static const char *mpc_stop[]  = { "mpc", "stop", NULL };
 static const char *mpc_replay[]  = { "mpc", "seek", "0%", NULL };
 static const char *mpc_back[]  = { "mpc", "seek", "+5", NULL };
 static const char *mpc_forward[]  = { "mpc", "seek", "-5", NULL };
-static const char *ncmpcpp[]  = { "st", "-e", "ncmpcpp", NULL };
+static const char *ncmpcpp[]  = { "st", "-t", "ncmpcpp", "-e", "ncmpcpp", NULL };
 static const char *discord[]  = { "discord", NULL };
 static const char *steam[]  = { "nv", "steam", NULL };
 static const char *imgeditor[]  = { "krita", NULL };
