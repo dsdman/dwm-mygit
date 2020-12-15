@@ -77,6 +77,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0";
 static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", base00, "-nf", base04, "-sb", base02, "-sf", base05, NULL };
+static const char *krunner[] = { "krunner", NULL };
 static const char *xkill[] = { "xkill", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *termtabbed[]  = { "st-tabbed.sh", NULL };
@@ -124,6 +125,7 @@ static const Key keys[] = {
   /* Launching applications + media + system keys */
 	{ MODKEY,                   XK_BackSpace,  spawn,          {.v = xkill } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
+	{ MODKEY|ControlMask,           XK_space,  spawn,          {.v = krunner } },
 	{ MODKEY,                       XK_1,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_1,      spawn,          {.v = browser2 } },
 	{ MODKEY|ControlMask,           XK_1,      spawn,          {.v = browser3 } },
