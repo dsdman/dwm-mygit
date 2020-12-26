@@ -125,7 +125,7 @@ static const Key keys[] = {
   /* Launching applications + media + system keys */
 	{ MODKEY,                   XK_BackSpace,  spawn,          {.v = xkill } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
-	{ MODKEY|ControlMask,           XK_space,  spawn,          {.v = krunner } },
+	{ MODKEY|ShiftMask|ControlMask, XK_space,  spawn,          {.v = krunner } },
 	{ MODKEY,                       XK_1,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_1,      spawn,          {.v = browser2 } },
 	{ MODKEY|ControlMask,           XK_1,      spawn,          {.v = browser3 } },
