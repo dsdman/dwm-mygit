@@ -45,7 +45,6 @@ static const Rule rules[] = {
 	{  NULL,                NULL,       "ncmpcpp",  1 << 5,       0,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
 	{ "XCalendar",          NULL,       NULL,       0,            1,           -1 },
-	{ "hl_linux",           NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -82,7 +81,7 @@ static const char *xkill[] = { "xkill", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *termtabbed[]  = { "st-tabbed.sh", NULL };
 static const char *browser[]  = { "librewolf-bin", NULL };
-static const char *browser2[]  = { "surf", NULL };
+static const char *browser2[]  = { "surf-open.sh", NULL };
 static const char *browser3[]  = { "falkon", NULL };
 static const char *pulse_switch[]  = { "switch-audio.sh", NULL };
 static const char *mpc_pause[]  = { "mpc", "toggle", NULL };
@@ -117,6 +116,7 @@ static const char *mutevol[] = { "amixer", "-D", "pulse", "sset", "Master", "mut
 static const char *upbacklight[] = { "sudo", "xbacklight", "-inc", "10", NULL };
 static const char *downbacklight[] = { "sudo", "xbacklight", "-dec", "10", NULL };
 static const char *scratch[] = { "st", "-g", "239x25+0+0", "-t", "scratch", NULL };
+static const char *playsong[] = { "PlaySong.sh", NULL };
 #include "push.c"
 
 static const Key keys[] = {
@@ -137,8 +137,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_5,      spawn,          {.v = imgeditor } },
 	{ MODKEY|ShiftMask,             XK_5,      spawn,          {.v = vscode } },
  	{ MODKEY,                       XK_6,      spawn,          {.v = discord } },
- 	{ MODKEY,                       XK_7,      spawn,          {.v = torrentclient } },
  	{ MODKEY|ShiftMask,             XK_6,      spawn,          {.v = steam } },
+ 	{ MODKEY,                       XK_7,      spawn,          {.v = torrentclient } },
+ 	{ MODKEY,                       XK_8,      spawn,          {.v = playsong } },
  	{ MODKEY,                       XK_9,      spawn,          {.v = calendar } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termtabbed } },
