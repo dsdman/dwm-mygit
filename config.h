@@ -38,13 +38,14 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                instance    title       tags mask     isfloating   monitor */
-	{ "krusader",           NULL,       NULL,       1 << 4,       0,           -1 },
-	{ "SpeedCrunch",        NULL,       NULL,       0,            1,           -1 },
-	{  NULL,                NULL,       "scratch",  1 << 9,       1,           -1 },
-	{  NULL,                NULL,       "ncmpcpp",  1 << 5,       0,           -1 },
-	{ "Steam",              NULL,       NULL,       0,            1,           -1 },
-	{ "XCalendar",          NULL,       NULL,       0,            1,           -1 },
+	/* class                instance    title       tags mask     switchtotag    isfloating   monitor */
+	{ "krusader",           NULL,       NULL,       1 << 4,       1,             0,           -1 },
+	{ "okular",             NULL,       NULL,       1 << 8,       1,             0,           -1 },
+	{ "SpeedCrunch",        NULL,       NULL,       0,            0,             1,           -1 },
+	{  NULL,                NULL,       "scratch",  1 << 9,       0,             1,           -1 },
+	{  NULL,                NULL,       "ncmpcpp",  1 << 5,       1,             0,           -1 },
+	{ "Steam",              NULL,       NULL,       0,            0,             1,           -1 },
+	{ "XCalendar",          NULL,       NULL,       0,            0,             1,           -1 },
 };
 
 /* layout(s) */
