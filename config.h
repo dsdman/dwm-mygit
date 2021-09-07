@@ -39,13 +39,19 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                instance    title       tags mask     switchtotag    isfloating   monitor */
+	{ "LibreWolf",          NULL,       NULL,       1 << 0,       1,             0,           -1 },
+	{ "Falkon",             NULL,       NULL,       1 << 0,       1,             0,           -1 },
+	{ "krita",              NULL,       NULL,       1 << 6,       1,             0,           -1 },
+	{ "mpv",                NULL,       NULL,       1 << 1,       1,             0,           -1 },
 	{ "krusader",           NULL,       NULL,       1 << 4,       1,             0,           -1 },
 	{ "okular",             NULL,       NULL,       1 << 8,       1,             0,           -1 },
+	{ "calibre",            NULL,       NULL,       1 << 8,       1,             0,           -1 },
 	{ "SpeedCrunch",        NULL,       NULL,       0,            0,             1,           -1 },
-	{  NULL,                NULL,       "scratch",  1 << 9,       0,             1,           -1 },
-	{  NULL,                NULL,       "ncmpcpp",  1 << 5,       1,             0,           -1 },
+	{ "discord",            NULL,       NULL,       1 << 2,       1,             0,           -1 },
 	{ "Steam",              NULL,       NULL,       0,            0,             1,           -1 },
 	{ "XCalendar",          NULL,       NULL,       0,            0,             1,           -1 },
+	{  NULL,                NULL,       "scratch",  1 << 9,       0,             1,           -1 },
+	{  NULL,                NULL,       "ncmpcpp",  1 << 5,       1,             0,           -1 },
 };
 
 /* layout(s) */
@@ -53,6 +59,8 @@ static const Rule rules[] = {
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",      tile },    /* first entry is default */
@@ -81,9 +89,9 @@ static const char *krunner[] = { "krunner", NULL };
 static const char *xkill[] = { "xkill", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *termtabbed[]  = { "st-tabbed.sh", NULL };
-static const char *browser[]  = { "librewolf-bin", NULL };
+static const char *browser[]  = { "falkon", NULL };
 static const char *browser2[]  = { "surf-open.sh", NULL };
-static const char *browser3[]  = { "falkon", NULL };
+static const char *browser3[]  = { "librewolf-bin", NULL };
 static const char *pulse_switch[]  = { "switch-audio.sh", NULL };
 static const char *mpc_pause[]  = { "mpc", "toggle", NULL };
 static const char *mpc_next[]  = { "mpc", "next", NULL };
