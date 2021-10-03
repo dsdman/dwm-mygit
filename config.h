@@ -52,6 +52,7 @@ static const Rule rules[] = {
 	{ "XCalendar",          NULL,       NULL,       0,            0,             1,           -1 },
 	{  NULL,                NULL,       "scratch",  1 << 9,       0,             1,           -1 },
 	{  NULL,                NULL,       "ncmpcpp",  1 << 5,       1,             0,           -1 },
+	{  NULL,                NULL,       "newsboat", 1 << 5,       1,             0,           -1 },
 };
 
 /* layout(s) */
@@ -101,6 +102,7 @@ static const char *mpc_replay[]  = { "mpc", "seek", "0%", NULL };
 static const char *mpc_back[]  = { "mpc", "seek", "+5", NULL };
 static const char *mpc_forward[]  = { "mpc", "seek", "-5", NULL };
 static const char *ncmpcpp[]  = { "st", "-t", "ncmpcpp", "-e", "ncmpcpp", NULL };
+static const char *newsboat[]  = { "st", "-t", "newsboat", "-e", "newsboat", NULL };
 static const char *discord[]  = { "discord", NULL };
 static const char *steam[]  = { "nv", "steam", NULL };
 static const char *imgeditor[]  = { "krita", NULL };
@@ -174,6 +176,7 @@ static const Key keys[] = {
  	{ MODKEY,                      XK_F6,      spawn,          {.v = mpc_forward} },
  	{ MODKEY,                      XK_F7,      spawn,          {.v = mpc_back} },
  	{ MODKEY,                      XK_F8,      spawn,          {.v = ncmpcpp} },
+ 	{ MODKEY|ShiftMask,            XK_F8,      spawn,          {.v = newsboat} },
 
   /* dwm operations (layout modes, killing windows, resize master, etc) */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
