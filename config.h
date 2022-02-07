@@ -24,10 +24,17 @@ static const char base0C[]          = "#86c1b9";
 static const char base0D[]          = "#7cafc2";
 static const char base0E[]          = "#ba8baf";
 static const char base0F[]          = "#a16946";
+static const unsigned int baralpha = 0xda;
+static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg      bg      border   */
 	[SchemeNorm] = { base04, base00, base01 },
 	[SchemeSel]  = { base05, base02, base0C },
+};
+static const unsigned int alphas[][3]      = {
+	/*               fg      bg        border     */
+	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
+	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */
