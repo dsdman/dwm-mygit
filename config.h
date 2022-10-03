@@ -24,17 +24,10 @@ static const char base0C[]          = "#86c1b9";
 static const char base0D[]          = "#7cafc2";
 static const char base0E[]          = "#ba8baf";
 static const char base0F[]          = "#a16946";
-static const unsigned int baralpha = 0xda;
-static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg      bg      border   */
 	[SchemeNorm] = { base04, base00, base01 },
 	[SchemeSel]  = { base05, base02, base0C },
-};
-static const unsigned int alphas[][3]      = {
-	/*               fg      bg        border     */
-	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */
@@ -95,97 +88,57 @@ static char dmenumon[2] = "0";
 static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", base00, "-nf", base04, "-sb", base02, "-sf", base05, NULL };
 static const char *krunner[] = { "krunner", NULL };
 static const char *xkill[] = { "xkill", NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *termtabbed[]  = { "st-tabbed.sh", NULL };
-static const char *browser[]  = { "falkon", NULL };
-static const char *browser2[]  = { "surf-open.sh", NULL };
+static const char *termcmd[]  = { "konsole", NULL };
 static const char *browser3[]  = { "librewolf-bin", NULL };
 static const char *pulse_switch[]  = { "switch-audio.sh", NULL };
-static const char *mpc_pause[]  = { "mpc", "toggle", NULL };
-static const char *mpc_next[]  = { "mpc", "next", NULL };
-static const char *mpc_prev[]  = { "mpc", "prev", NULL };
-static const char *mpc_stop[]  = { "mpc", "stop", NULL };
-static const char *mpc_replay[]  = { "mpc", "seek", "0%", NULL };
-static const char *mpc_back[]  = { "mpc", "seek", "+5", NULL };
-static const char *mpc_forward[]  = { "mpc", "seek", "-5", NULL };
-static const char *ncmpcpp[]  = { "st", "-t", "ncmpcpp", "-e", "ncmpcpp", NULL };
-static const char *newsboat[]  = { "st", "-t", "newsboat", "-e", "newsboat", NULL };
-static const char *discord[]  = { "discord", NULL };
-static const char *steam[]  = { "nv", "steam", NULL };
+static const char *discord[]  = { "Discord", NULL };
 static const char *imgeditor[]  = { "krita", NULL };
-static const char *vscode[]  = { "vscode", NULL };
 static const char *torrentclient[]  = { "qbittorrent", NULL };
-static const char *calendar[] = { "xcalendar", NULL };
-static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
+static const char *sys_mon[]  = { "konsole", "-e", "btop", NULL };
 static const char *display_setup2[]  = { "dual-monitor-setup.sh", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
-static const char *mixer[]  = { "pavucontrol", NULL };
-static const char *mixer2[]  = { "st", "-e", "alsamixer", NULL };
+static const char *mixer[]  = { "pavucontrol-qt", NULL };
+static const char *mixer2[]  = { "konsole", "-e", "alsamixer", NULL };
 static const char *filebrowser[]  = { "krusader", NULL };
 static const char *screenshot[]  = { "scrot",  NULL };
 static const char *lockscreen[]  = { "sudo", "slock", NULL };
-static const char *suspend[] = { "sudo", "s2ram", NULL};
-static const char *suspend_lock[] = { "/home/dylan/apps/bin/lock+suspend.sh", NULL};
 static const char *reboot[] = { "sudo", "reboot", NULL};
 static const char *poweroff[] = { "sudo", "poweroff", NULL };
-static const char *upvol[]   = { "amixer", "-D", "pulse", "sset", "Master", "5%+", NULL };
-static const char *downvol[] = { "amixer", "-D", "pulse", "sset", "Master", "5%-", NULL };
-static const char *mutevol[] = { "amixer", "-D", "pulse", "sset", "Master", "mute", NULL };
-static const char *upbacklight[] = { "sudo", "xbacklight", "-inc", "10", NULL };
-static const char *downbacklight[] = { "sudo", "xbacklight", "-dec", "10", NULL };
+static const char *upvol[]   = { "amixer", "-D", "pipewire", "sset", "Master", "5%+", NULL };
+static const char *downvol[] = { "amixer", "-D", "pipewire", "sset", "Master", "5%-", NULL };
+static const char *mutevol[] = { "amixer", "-D", "pipewire", "sset", "Master", "mute", NULL };
 static const char *scratch[] = { "st", "-g", "239x25+0+0", "-t", "scratch", NULL };
-static const char *playsong[] = { "PlaySong.sh", NULL };
 #include "push.c"
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 
-  /* Launching applications + media + system keys */
+  	/* Launching applications + media + system keys */
 	{ MODKEY,                   XK_BackSpace,  spawn,          {.v = xkill } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_space,  spawn,          {.v = krunner } },
-	{ MODKEY,                       XK_1,      spawn,          {.v = browser } },
-	{ MODKEY|ShiftMask,             XK_1,      spawn,          {.v = browser2 } },
-	{ MODKEY|ControlMask,           XK_1,      spawn,          {.v = browser3 } },
+	{ MODKEY,           		XK_1,      spawn,          {.v = browser3 } },
 	{ MODKEY,                       XK_2,      spawn,          {.v = filebrowser } },
  	{ MODKEY,                       XK_3,      spawn,          {.v = calc } },
 	{ MODKEY,                       XK_4,      spawn,          {.v = mixer } },
 	{ MODKEY|ControlMask,           XK_4,      spawn,          {.v = mixer2 } },
 	{ MODKEY|ShiftMask,             XK_4,      spawn,          {.v = pulse_switch } },
 	{ MODKEY,                       XK_5,      spawn,          {.v = imgeditor } },
-	{ MODKEY|ShiftMask,             XK_5,      spawn,          {.v = vscode } },
  	{ MODKEY,                       XK_6,      spawn,          {.v = discord } },
- 	{ MODKEY|ShiftMask,             XK_6,      spawn,          {.v = steam } },
  	{ MODKEY,                       XK_7,      spawn,          {.v = torrentclient } },
- 	{ MODKEY,                       XK_8,      spawn,          {.v = playsong } },
- 	{ MODKEY,                       XK_9,      spawn,          {.v = calendar } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termtabbed } },
-	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,           		XK_Return, spawn,          {.v = termcmd } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = scratch } },
 	{ MODKEY,                       XK_Escape, spawn,          {.v = sys_mon } },
  	{ MODKEY,                       XK_F9,     spawn,          {.v = lockscreen } },
- 	{ MODKEY,                       XK_F10,    spawn,          {.v = suspend } },
- 	{ MODKEY|ShiftMask,             XK_F10,    spawn,          {.v = suspend_lock } },
 	{ MODKEY,                       XK_F11,    spawn,          {.v = reboot} },
 	{ MODKEY,                       XK_F12,    spawn,          {.v = poweroff} },
  	{ 0,              XF86XK_AudioLowerVolume, spawn,          {.v = downvol} },
  	{ 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = upvol} },
  	{ 0,              XF86XK_AudioMute,        spawn,          {.v = mutevol} },
- 	{ 0,              XF86XK_MonBrightnessUp,  spawn,          {.v = upbacklight} },
- 	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbacklight} },
- 	{ 0,              XK_Print,                spawn,          {.v = screenshot} },
- 	{ MODKEY,                      XK_F1,      spawn,          {.v = mpc_pause} },
- 	{ MODKEY,                      XK_F2,      spawn,          {.v = mpc_prev} },
- 	{ MODKEY,                      XK_F3,      spawn,          {.v = mpc_next} },
- 	{ MODKEY,                      XK_F4,      spawn,          {.v = mpc_stop} },
- 	{ MODKEY,                      XK_F5,      spawn,          {.v = mpc_replay} },
- 	{ MODKEY,                      XK_F6,      spawn,          {.v = mpc_forward} },
- 	{ MODKEY,                      XK_F7,      spawn,          {.v = mpc_back} },
- 	{ MODKEY,                      XK_F8,      spawn,          {.v = ncmpcpp} },
- 	{ MODKEY|ShiftMask,            XK_F8,      spawn,          {.v = newsboat} },
+ 	{ 0,              	       XK_Print,   spawn,          {.v = screenshot} },
 
-  /* dwm operations (layout modes, killing windows, resize master, etc) */
+  	/* dwm operations (layout modes, killing windows, resize master, etc) */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -209,12 +162,12 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_v,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_f,      killclient,     {0} },
-  { MODKEY|ShiftMask,             XK_k,      pushup,         {.i = -1 } },
-  { MODKEY|ShiftMask,             XK_j,      pushdown,       {.i = +1 } },
-  { MODKEY,                       XK_o,      winview,        {0} },
+  	{ MODKEY|ShiftMask,             XK_k,      pushup,         {.i = -1 } },
+  	{ MODKEY|ShiftMask,             XK_j,      pushdown,       {.i = +1 } },
+  	{ MODKEY,                       XK_o,      winview,        {0} },
 	{ MODKEY|ShiftMask,             XK_f,      quit,           {0} },
 
-  /* Tag/monitor manipulation */
+  	/* Tag/monitor manipulation */
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
