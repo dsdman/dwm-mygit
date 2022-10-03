@@ -40,19 +40,13 @@ static const Rule rules[] = {
 	 */
 	/* class                instance    title       tags mask     switchtotag    isfloating   monitor */
 	{ "LibreWolf",          NULL,       NULL,       1 << 0,       1,             0,           -1 },
-	{ "Falkon",             NULL,       NULL,       1 << 0,       1,             0,           -1 },
 	{ "krita",              NULL,       NULL,       1 << 6,       1,             0,           -1 },
 	{ "mpv",                NULL,       NULL,       1 << 1,       1,             0,           -1 },
 	{ "krusader",           NULL,       NULL,       1 << 4,       1,             0,           -1 },
 	{ "okular",             NULL,       NULL,       1 << 8,       1,             0,           -1 },
-	{ "calibre",            NULL,       NULL,       1 << 8,       1,             0,           -1 },
 	{ "SpeedCrunch",        NULL,       NULL,       0,            0,             1,           -1 },
-	{ "discord",            NULL,       NULL,       1 << 2,       1,             0,           -1 },
-	{ "Steam",              NULL,       NULL,       0,            0,             1,           -1 },
-	{ "XCalendar",          NULL,       NULL,       0,            0,             1,           -1 },
+	{ "Discord",            NULL,       NULL,       1 << 2,       1,             0,           -1 },
 	{  NULL,                NULL,       "scratch",  1 << 9,       0,             1,           -1 },
-	{  NULL,                NULL,       "ncmpcpp",  1 << 5,       1,             0,           -1 },
-	{  NULL,                NULL,       "newsboat", 1 << 5,       1,             0,           -1 },
 };
 
 /* layout(s) */
@@ -84,8 +78,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", base00, "-nf", base04, "-sb", base02, "-sf", base05, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", base00, "-nf", base04, "-sb", base02, "-sf", base05, "-b", NULL };
 static const char *krunner[] = { "krunner", NULL };
 static const char *xkill[] = { "xkill", NULL };
 static const char *termcmd[]  = { "konsole", NULL };
